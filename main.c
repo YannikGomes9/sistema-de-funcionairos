@@ -7,6 +7,7 @@
 #include "hash_map.h"
 #include "banco.h"
 #include "persistencia.h"
+#include "console.h"
 
 /* Função principal: executa o menu de operações, carrega dados persistidos e salva ao sair. */
 int main()
@@ -115,7 +116,7 @@ int main()
                 }
                 else
                 {
-                    printf("Falha: funcionario nao encontrado.\n");
+                    printError("Falha: funcionário não encontrado.\n");
                 }
                 break;
             }
@@ -156,7 +157,7 @@ int main()
 
                 if(updateFuncionario == NULL)
                 {
-                    printf("Falha: funcionario nao encontrado.\n");
+                    printError("Falha: funcionário não encontrado.\n");
                     break;
                 }
 
@@ -186,7 +187,7 @@ int main()
                 printf("Novo salario: ");
                 scanf("%f",&updateFuncionario->salario);
 
-                printf("Sucesso: funcionario atualizado.\n");
+                printSuccess("Funcionário atualizado com sucesso.\n");
 
                 salvarArquivo(&banco);
                 break;
@@ -219,9 +220,7 @@ int main()
                 /* Ordenar Nome */
                 ordenarPorNome(&banco);
 
-                printf(
-                    "Sucesso: funcionarios ordenados por nome.\n"
-                );
+                printSuccess("Funcionários ordenados por nome.\n");
 
                 salvarArquivo(&banco);
                 break;
@@ -231,9 +230,7 @@ int main()
                 /* Ordenar Salario */
                 ordenarPorSalario(&banco);
 
-                printf(
-                    "Sucesso: funcionarios ordenados por salario.\n"
-                );
+                printSuccess("Funcionários ordenados por salário.\n");
 
                 salvarArquivo(&banco);
 
@@ -250,12 +247,12 @@ int main()
 
                 salvarArquivo(&banco);
 
-                printf("Sistema encerrado.\n");
+                printInfo("Sistema encerrado.\n");
                 break;
             }
             default:
     
-                printf("Opcao invalida.\n");
+                printError("Opção inválida.\n");
         }
 
     }while(opcao!=0);

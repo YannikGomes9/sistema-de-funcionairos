@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "banco.h"
+#include "console.h"
 
 /* Inicializa o banco de funcionários definindo quantidade e índice de busca. */
 void inicializarBanco(
@@ -20,7 +21,7 @@ int adicionarFuncionario(
 {
     if(b->quantidade>=MAX_FUNCIONARIOS)
     {
-        printf("Falha: banco cheio.\n");
+        printError("Falha: banco cheio.\n");
         return 0;
     }
 
@@ -28,7 +29,7 @@ int adicionarFuncionario(
         &b->indiceID,
         f.id)!=-1)
     {
-        printf("Falha: ID existente.\n");
+        printError("Falha: ID existente.\n");
         return 0;
     }
 
@@ -44,7 +45,7 @@ int adicionarFuncionario(
 
     b->quantidade++;
 
-    printf("Sucesso: funcionario inserido.\n");
+    printSuccess("Funcionário inserido com sucesso.\n");
 
     return 1;
 }
@@ -140,12 +141,12 @@ void folhaSalarial(
     printf("Total de funcionários: %d\n", b->quantidade);
     printf("-------------------------------------\n");
     printf(
-        "Total: R$ %.2f\n",
+        "Total: %.2f KWZ\n",
         total
     );
 
     printf(
-        "Media: %.2f\n",
+        "Media: %.2f KWZ\n",
         total/b->quantidade
     );
 }
@@ -158,7 +159,7 @@ int removerFuncionario(
 
     if(pos == -1)
     {
-        printf("Falha: funcionario nao encontrado.\n");
+        printError("Falha: funcionário não encontrado.\n");
         return 0;
     }
 
