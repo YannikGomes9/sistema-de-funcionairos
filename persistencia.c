@@ -2,6 +2,7 @@
 
 #include "persistencia.h"
 
+/* Carrega funcionários do ficheiro de dados para o banco ao iniciar o programa. */
 void carregarArquivo(
     BancoFuncionarios *b)
 {
@@ -36,6 +37,7 @@ void carregarArquivo(
     fclose(fp);
 }
 
+/* Salva o estado atual do banco no ficheiro de dados, sobrescrevendo o conteúdo anterior. */
 void salvarArquivo(
     BancoFuncionarios *b)
 {

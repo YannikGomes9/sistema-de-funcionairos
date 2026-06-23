@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "hash_map.h"
 
+/* Função de hash simples para mapear IDs em índices fixos. */
 static int funcaoHash(int id)
 {
     return id % HASH_SIZE;
@@ -12,6 +13,7 @@ void inicializarHash(HashMap *h)
         h->tabela[i]=NULL;
 }
 
+/* Insere um par ID-posicao no mapa hash para busca rápida. */
 int inserirHash(
     HashMap *h,
     int id,
@@ -35,6 +37,7 @@ int inserirHash(
     return 1;
 }
 
+/* Busca um ID no map hash e retorna a posição correspondente ou -1 se não existir. */
 int buscarHash(
     HashMap *h,
     int id)
@@ -55,6 +58,7 @@ int buscarHash(
     return -1;
 }
 
+/* Remove um par ID-posicao do mapa hash, ajustando os ponteiros da lista encadeada. */
 int removerHash(
     HashMap *h,
     int id)

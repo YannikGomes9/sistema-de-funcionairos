@@ -5,6 +5,7 @@
 #include "banco.h"
 #include "persistencia.h"
 
+/* Função principal: executa o menu de operações, carrega dados persistidos e salva ao sair. */
 int main()
 {
     BancoFuncionarios banco;

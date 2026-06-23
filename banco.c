@@ -2,6 +2,7 @@
 #include <string.h>
 #include "banco.h"
 
+/* Inicializa o banco de funcionários definindo quantidade e índice de busca. */
 void inicializarBanco(
     BancoFuncionarios *b)
 {
@@ -12,6 +13,7 @@ void inicializarBanco(
     );
 }
 
+/* Adiciona um funcionário ao banco se houver espaço e o ID não existir. */
 int adicionarFuncionario(
     BancoFuncionarios *b,
     Funcionario f)
@@ -47,6 +49,7 @@ int adicionarFuncionario(
     return 1;
 }
 
+/* Busca um funcionário pelo ID usando índice hash e retorna ponteiro ou NULL. */
 Funcionario* buscarFuncionarioID(
     BancoFuncionarios *b,
     int id)
@@ -63,6 +66,7 @@ Funcionario* buscarFuncionarioID(
     return &b->funcionarios[pos];
 }
 
+/* Busca e imprime todos os funcionários cujo nome contém o texto informado. */
 void buscarNomeParcial(
     BancoFuncionarios *b,
     const char *nome)
@@ -87,6 +91,7 @@ void buscarNomeParcial(
         printf("Nenhum encontrado.\n");
 }
 
+/* Exibe todos os funcionários cadastrados em tabela formatada. */
 void listarFuncionarios(
     BancoFuncionarios *b)
 {
@@ -113,6 +118,7 @@ void listarFuncionarios(
     printf("Total: %d funcionario(s).\n", b->quantidade);
 }
 
+/* Calcula e exibe total e média salarial dos funcionários ativos. */
 void folhaSalarial(
     BancoFuncionarios *b)
 {
@@ -163,6 +169,33 @@ int removerFuncionario(
     return 1;
 }
 
+/* Remove um funcionário pelo ID e reconstrói o índice hash após realocar registros. */
+int removerFuncionario(
+    BancoFuncionarios *b,
+    int id)
+{
+    int pos = buscarHash(&b->indiceID, id);
+
+    if(pos == -1)
+    {
+        printf("Falha: funcionario nao encontrado.\n");
+        return 0;
+    }
+
+    for(int i=pos;i<b->quantidade-1;i++)
+    {
+        b->funcionarios[i] = b->funcionarios[i+1];
+    }
+
+    b->quantidade--;
+    reconstruirHash(b);
+
+    printf("Sucesso: funcionario removido.\n");
+
+    return 1;
+}
+
+/* Ordena os funcionários por nome em ordem alfabética e atualiza o índice. */
 void ordenarPorNome(
     BancoFuncionarios *b)
 {
@@ -187,6 +220,7 @@ void ordenarPorNome(
     reconstruirHash(b);
 }
 
+/* Ordena os funcionários por salário crescente e atualiza o índice. */
 void ordenarPorSalario(
     BancoFuncionarios *b)
 {
@@ -210,6 +244,7 @@ void ordenarPorSalario(
     reconstruirHash(b);
 }
 
+/* Conta e exibe a quantidade de funcionários por departamento. */
 void contarDepartamentos(
     BancoFuncionarios *b)
 {
@@ -265,6 +300,7 @@ void contarDepartamentos(
     printf("Total: %d departamento(s).\n", numDepts);
 }
 
+/* Reconstrói o índice hash com base na ordem atual dos registros no banco. */
 void reconstruirHash(
     BancoFuncionarios *b)
 {

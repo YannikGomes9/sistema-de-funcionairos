@@ -2,6 +2,7 @@
 #include <string.h>
 #include "funcionario.h"
 
+/* Cria um registro de funcionário preenchendo os campos obrigatórios. */
 Funcionario criarFuncionario(
     int id,
     const char *nome,
@@ -20,6 +21,7 @@ Funcionario criarFuncionario(
     return f;
 }
 
+/* Imprime os dados de um funcionário em formato legível. */
 void imprimirFuncionario(Funcionario f)
 {
     printf("\n");
