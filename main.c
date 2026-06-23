@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include "funcionario.h"
 #include "hash_map.h"
 #include "banco.h"
@@ -10,6 +13,11 @@ int main()
 {
     BancoFuncionarios banco;
 
+#ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+
     inicializarBanco(&banco);
 
     carregarArquivo(&banco);
@@ -19,19 +27,25 @@ int main()
     do
     {
         printf("\n");
-        printf("1-Adicionar\n");
-        printf("2-Listar\n");
-        printf("3-Buscar ID\n");
-        printf("4-Buscar Nome\n");
-        printf("5-Atualizar\n");
-        printf("6-Remover\n");
-        printf("7-Folha Salarial\n");
-        printf("8-Ordenar Nome\n");
-        printf("9-Ordenar Salario\n");
-        printf("10-Contar Departamentos\n");
-        printf("0-Sair\n");
+        printf("=========================================================\n");
+        printf("           SISTEMA DE FUNCIONÁRIOS - MENU PRINCIPAL      \n");
+        printf("=========================================================\n");
+        printf("|  1  | Adicionar funcionário                             |\n");
+        printf("|  2  | Listar todos os funcionários                      |\n");
+        printf("|  3  | Buscar por ID                                     |\n");
+        printf("|  4  | Buscar por nome                                   |\n");
+        printf("|  5  | Atualizar dados do funcionário                     |\n");
+        printf("|  6  | Remover funcionário                                |\n");
+        printf("|  7  | Folha salarial                                     |\n");
+        printf("|  8  | Ordenar por nome                                   |\n");
+        printf("|  9  | Ordenar por salário                                |\n");
+        printf("| 10  | Contar departamentos                               |\n");
+        printf("|  0  | Sair                                               |\n");
+        printf("=========================================================\n");
+        printf("Opção: ");
 
         scanf("%d",&opcao);
+        printf("---------------------------------------------------------\n");
 
         switch(opcao)
         {

@@ -73,6 +73,8 @@ void buscarNomeParcial(
 {
     int encontrou=0;
 
+    printf("\n===== RESULTADOS DA BUSCA POR NOME =====\n");
+
     for(int i=0;i<b->quantidade;i++)
     {
         if(strstr(
@@ -88,7 +90,7 @@ void buscarNomeParcial(
     }
 
     if(!encontrou)
-        printf("Nenhum encontrado.\n");
+        printf("Nenhum funcionário encontrado para '%s'.\n", nome);
 }
 
 /* Exibe todos os funcionários cadastrados em tabela formatada. */
@@ -97,12 +99,13 @@ void listarFuncionarios(
 {
     if(b->quantidade==0)
     {
-        printf("Nenhum funcionario cadastrado.\n");
+        printf("Nenhum funcionário cadastrado.\n");
         return;
     }
 
-    printf("\n+-------+---------------------------+-----------------+---------------+\n");
-    printf("| ID    | Nome                      | Departamento    | Salario       |\n");
+    printf("\n===== LISTA DE FUNCIONÁRIOS CADASTRADOS =====\n");
+    printf("+-------+---------------------------+-----------------+---------------+\n");
+    printf("| ID    | Nome                      | Departamento    | Salário       |\n");
     printf("+-------+---------------------------+-----------------+---------------+\n");
 
     for(int i=0;i<b->quantidade;i++)
@@ -129,12 +132,15 @@ void folhaSalarial(
 
     if(b->quantidade==0)
     {
-        printf("Sem funcionarios.\n");
+        printf("Sem funcionários cadastrados.\n");
         return;
     }
 
+    printf("\n===== RELATÓRIO DE FOLHA SALARIAL =====\n");
+    printf("Total de funcionários: %d\n", b->quantidade);
+    printf("-------------------------------------\n");
     printf(
-        "Total: %.2f\n",
+        "Total: R$ %.2f\n",
         total
     );
 
@@ -144,32 +150,6 @@ void folhaSalarial(
     );
 }
 
-int removerFuncionario(
-    BancoFuncionarios *b,
-    int id)
-{
-    int pos = buscarHash(&b->indiceID, id);
-
-    if(pos == -1)
-    {
-        printf("Falha: funcionario nao encontrado.\n");
-        return 0;
-    }
-
-    for(int i=pos;i<b->quantidade-1;i++)
-    {
-        b->funcionarios[i] = b->funcionarios[i+1];
-    }
-
-    b->quantidade--;
-    reconstruirHash(b);
-
-    printf("Sucesso: funcionario removido.\n");
-
-    return 1;
-}
-
-/* Remove um funcionário pelo ID e reconstrói o índice hash após realocar registros. */
 int removerFuncionario(
     BancoFuncionarios *b,
     int id)
@@ -250,9 +230,11 @@ void contarDepartamentos(
 {
     if(b->quantidade==0)
     {
-        printf("Nenhum funcionario cadastrado.\n");
+        printf("Nenhum funcionário cadastrado.\n");
         return;
     }
+
+    printf("\n===== CONTAGEM DE DEPARTAMENTOS =====\n");
 
     typedef struct
     {
@@ -286,7 +268,7 @@ void contarDepartamentos(
     }
 
     printf("\n+-----------------+------------+\n");
-    printf("| Departamento    | Funcionarios |\n");
+    printf("| Departamento    | Funcionários |\n");
     printf("+-----------------+------------+\n");
 
     for(int i=0;i<numDepts;i++)
@@ -298,6 +280,7 @@ void contarDepartamentos(
 
     printf("+-----------------+------------+\n");
     printf("Total: %d departamento(s).\n", numDepts);
+    printf("====================================\n");
 }
 
 /* Reconstrói o índice hash com base na ordem atual dos registros no banco. */
